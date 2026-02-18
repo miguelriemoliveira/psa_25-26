@@ -19,7 +19,7 @@ i = 0;
 
 i = i + 1;
 s(i).name = 'Francisco';
-s(i).team = 'red';
+s(i).team = 0; % red
 s(i).color = [1 0 0];
 s(i).x = rand * 16 -8;
 s(i).y = rand * 16 -8;
@@ -28,7 +28,7 @@ s(i).killed = 0;
 
 i = i + 1;
 s(i).name = 'Francisca';
-s(i).team = 'red';
+s(i).team = 0;  % red
 s(i).color = [1 0 0];
 s(i).x = rand * 16 -8 ;
 s(i).y = rand * 16 -8;
@@ -38,7 +38,7 @@ s(i).killed = 0;
 
 i = i + 1;
 s(i).name = 'Matilde';
-s(i).team = 'green';
+s(i).team = 1;  % green
 s(i).color = [0 0.5 0];
 s(i).x = rand * 16 -8;
 s(i).y = rand * 16 -8;
@@ -47,7 +47,7 @@ s(i).killed = 0;
 
 i = i + 1;
 s(i).name = 'João';
-s(i).team = 'blue';
+s(i).team = 2; % blue
 s(i).color = [0 0 1];
 s(i).x = rand * 16 -8 ;
 s(i).y = rand * 16 -8;
@@ -72,7 +72,15 @@ for k=1:50
     end
 
     %% Jogador fora da arena
-    % matar jogador que saiu fora da arena
+    for i=1:size(s,2) % size(s,2) dá o número de jogadores
+
+        if (s(i).x < -10 || s(i).x > 10 || ...
+                s(i).y < -10 || s(i).y > 10)
+            s(i).killed = 1;
+        end
+
+    end
+
 
     %% Jogador que caça outro
 
@@ -87,12 +95,12 @@ for k=1:50
       
         set(s(i).htext, 'Position', [s(i).x, s(i).y+0.5, 0]);
         if s(i).killed == 1
-            set(s(i).htext, 'String', [s(i).name ' (killed)']);
+            set(s(i).htext, 'String', [s(i).name ' (Killed)']);
         end
 
          
         
     end
 
-    pause
+    pause(0.3)
 end
