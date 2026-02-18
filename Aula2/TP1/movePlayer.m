@@ -1,0 +1,12 @@
+function s = movePlayer(s, i, vmax)
+
+if s(i).killed == 1 % dead people do not move (except zombies)
+    return
+end
+
+%% move in the current direction
+xnew = s(i).x + vmax * cos(s(i).ang);
+ynew = s(i).y + vmax * sin(s(i).ang);
+
+s(i).x = xnew;
+s(i).y = ynew;
