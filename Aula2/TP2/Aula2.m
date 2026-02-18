@@ -1,0 +1,119 @@
+clc; clear all; close all;
+
+%% Game parameters
+vmax = 0.5;
+
+%% Create players
+i = 0;
+
+% Benfica
+i = i + 1;
+s(i).name = 'João';
+s(i).color = [1 0 0];
+s(i).team = 0; % equipa vermelha
+s(i).x = rand * 12 -6; s(i).y = rand * 12 -6;
+s(i).ang = rand * 2 * pi;
+s(i).killed = 0;
+
+i = i + 1;
+s(i).name = 'Tomás';
+s(i).color = [1 0 0];
+s(i).team = 0; % equipa vermelha
+s(i).x = rand * 12 -6; s(i).y = rand * 12 -6;
+s(i).ang = rand * 2 * pi;
+s(i).killed = 0;
+
+% Sporting
+i = i + 1;
+s(i).name = 'Inês';
+s(i).color = [0 0.5 0];
+s(i).team = 1; % equipa verde
+s(i).x = rand * 12 -6; s(i).y = rand * 12 -6;
+s(i).ang = rand * 2 * pi;
+s(i).killed = 0;
+
+i = i + 1;
+s(i).name = 'João';
+s(i).color = [0 0.5 0];
+s(i).team = 1; % equipa verde
+s(i).x = rand * 12 -6; s(i).y = rand * 12 -6;
+s(i).ang = rand * 2 * pi;
+s(i).killed = 0;
+
+% Porto
+i = i + 1;
+s(i).name = 'Afonso';
+s(i).color = [0 0 1];
+s(i).team = 2; % equipa azul
+s(i).x = rand * 12 -6; s(i).y = rand * 12 -6;
+s(i).ang = rand * 2 * pi;
+s(i).killed = 0;
+
+i = i + 1;
+s(i).name = 'Gustavo';
+s(i).color = [0 0 1];
+s(i).team = 2; % equipa azul
+s(i).x = rand * 12 -6; s(i).y = rand * 12 -6;
+s(i).ang = rand * 2 * pi;
+s(i).killed = 0;
+
+%% Draw Arena
+plot([-10 10 10 -10 -10], [10 10 -10 -10 10], '--k')
+axis([-12 12 -12 12]);
+hold on;
+
+%% Draw Players at inital position using plot
+for i=1:size(s,2)% iterate all players
+
+    % Draw player circle
+    s(i).hcircle = plot(s(i).x, s(i).y, '.', 'MarkerSize',26, 'Color', s(i).color);
+
+    % Draw arrow
+    xf = s(i).x + vmax * cos(s(i).ang);
+    yf = s(i).y + vmax * sin(s(i).ang);
+    s(i).harrow = plot([s(i).x xf], [s(i).y yf], '-', 'Color', s(i).color);
+
+    % Draw text
+    s(i).htext = text(s(i).x, s(i).y+0.5, s(i).name);
+
+end
+
+
+%% Start game
+for k=1:50
+
+    %% Move Players
+    for i=1:size(s,2)% iterate all players
+        s = movePlayer(s, i, vmax);
+    end
+
+    %% Player left arena?
+    for i=1:size(s,2)% iterate all players
+        % Find if player i left arena
+    end
+
+    %% Player was hunted?
+    for i=1:size(s,2)% iterate all players
+        % Find if player i left arena
+    end
+
+    %% Draw Players
+    for i=1:size(s,2)% iterate all players
+        set(s(i).hcircle, 'XData', s(i).x, 'YData', s(i).y);
+
+        xtip = s(i).x + vmax * cos(s(i).ang);
+        ytip = s(i).y + vmax * sin(s(i).ang);
+        set(s(i).harrow, 'XData', [s(i).x xtip], ... 
+            'YData', [s(i).y, ytip])
+
+        set(s(i).htext, 'Position', [s(i).x, s(i).y+0.5, 0]);
+
+        if s(i).killed == 1
+            set(s(i).htext, 'String', [s(i).name ' (killed)'])
+
+        end
+
+    end
+
+    pause(0.3)
+end
