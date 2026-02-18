@@ -80,7 +80,7 @@ end
 
 
 %% Start game
-for k=1:50
+for k=1:150
 
     %% Move Players
     for i=1:size(s,2)% iterate all players
@@ -89,7 +89,10 @@ for k=1:50
 
     %% Player left arena?
     for i=1:size(s,2)% iterate all players
-        % Find if player i left arena
+        if s(i).x < -10 || s(i).x > 10 || ...
+           s(i).y < -10 || s(i).y > 10
+            s(i).killed = 1;
+        end
     end
 
     %% Player was hunted?
